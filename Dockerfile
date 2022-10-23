@@ -23,7 +23,8 @@ RUN apt-get update && apt-get -y install \
 	libboost-date-time1.67 \
 	libboost-atomic1.67 \
 	libboost-filesystem1.67 \
-	libboost-regex1.67
+	libboost-regex1.67 \
+	libboost-program-options1.67
 
 RUN apt-get -y install --reinstall ca-certificates
 
@@ -36,6 +37,8 @@ RUN git clone https://github.com/ipint-axxonsoft/nghttp2.git \
 RUN git clone https://github.com/ipint-axxonsoft/websocket_cpp.git
 
 RUN cp -R websocket_cpp/include/websocket_cpp nghttp2/src/includes/
+
+ADD ./resource_files/key.pem ./resource_files/server.pem /app/
 
 RUN cmake ./nghttp2 -Bbuild -DENABLE_ASIO_LIB=1 -DENABLE_EXAMPLES=1
 
